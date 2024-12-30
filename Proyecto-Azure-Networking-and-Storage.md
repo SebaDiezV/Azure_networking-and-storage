@@ -10,6 +10,7 @@ Este proyecto cubre la implementación de una cuenta de almacenamiento segura, l
 Una empresa desea implementar una cuenta de almacenamiento segura, garantizar el aislamiento de la red para sus recursos, aplicar el cifrado de datos y utilizar plantillas para automatizar la implementación de recursos.
 
 ## Diagrama
+![proyecto 2](https://github.com/user-attachments/assets/59700e17-1ddb-4302-94d3-bd8cef0956f9)
 
 ## Tarea 1: Crear una Red Virtual (Vnet)
 
@@ -126,4 +127,72 @@ Una empresa desea implementar una cuenta de almacenamiento segura, garantizar el
 
 ## Tarea 4: Implementar la red virtual y la cuenta de almacenamiento mediante una plantilla ARM
 
-**PLACEHOLDER**
+>**Nota**: Los siguientes pasos son identicos para ambos servicios pero para este caso solo realizaré los pasos para la VNet
+
+1. ingresa a la VNet creada con anterioridad, selecciona **autonation** > **Exportar planilla** y selecciona descargar, extrae los archivos del rar descargado
+<img width="394" alt="21" src="https://github.com/user-attachments/assets/b10f159e-57e2-4ca9-b981-9c6ef53b44ee" />
+
+2. En el **Portal de Azure**, ingresa a **Espesificaciones de plantilla**
+<img width="247" alt="22" src="https://github.com/user-attachments/assets/e2d94eb0-df28-4e89-9787-dc730c373406" />
+
+3. Selecciona la opción **Importar plantilla**, luego presiona el botón con el icono de carpeta, navega hacia la ubicación donde dejste el archivo template, seleccionalo y luego presiona el botón Importar
+   
+<img width="396" alt="23" src="https://github.com/user-attachments/assets/b8ced4ec-72f5-4cd1-80b7-23237c20c2e0" />     ------
+
+<img width="479" alt="24" src="https://github.com/user-attachments/assets/629394e1-eb37-4b95-96c3-a5dc5efe361f" />
+
+4. Llena los datos basicos de la plantilla, Revisar y crear > Crear
+<img width="437" alt="25" src="https://github.com/user-attachments/assets/d249c482-661e-4b46-8d57-94dc3c71109b" />
+
+5. Una vez creada la plantilla, para poder usarla selecciona lo 3 puntos  y selecciona la opción **Implementar**
+<img width="953" alt="26" src="https://github.com/user-attachments/assets/f8856a93-e3fa-4bc5-b7c8-3623a1f31f6d" />
+
+## Tarea 5: Prueba de acceso y cifrado
+
+>**Nota**: Para el siguiente ejercicio se debe cambiar **Acceso de red pública** de la cuenta de almacenamiento, debido a que en el estado **Deshabilitado** y con la configuración del **Punto de conexión privado**, solo permite conexiónes desde la misma Vnet, invalidando la conexión a través de **Firma de acceso compartido**
+
+1. Ingresa a la Cuenta de almacenamiento creada con anterioridad, ingresa a **Seguridad y redes** > **Redes**, en **Acceso de red pública** selecciona la opción **Habilitado desde redes virtuales y direcciones ip seleccionadas**, en el apartado **Firewall** ingresa la dirección ip pública de donde estas realizando el ejercicio, guardar los cambios
+<img width="491" alt="26-a" src="https://github.com/user-attachments/assets/3f7c1b7d-705a-4a47-b35e-e2be4d67a104" />
+
+2. En **Seguridad y redes** > **Firma de acceso compartido**, Selecciona todos los tipos de recusos permitidos
+<img width="741" alt="27" src="https://github.com/user-attachments/assets/6c8ba922-3aa5-4ca0-af54-9133bcfaa3ca" />
+
+3. Selecciona la opcion **Generar la cadena de conexión y SAS**, copia la cadena de conexión (comienza con **BlobEndpoint=https...**)
+<img width="486" alt="28" src="https://github.com/user-attachments/assets/32f03473-a90d-46c3-8c75-116eeb4bc2b8" />
+
+4. Descarga e instala **Azure Storage Explorer** del siguiente link, instalador se encuentra al final de la página
+https://azure.microsoft.com/en-us/products/storage/storage-explorer/
+
+5. En Azure Storage Explorer, selecciona el botón **Conexión a los recursos de Azure**
+<img width="553" alt="29" src="https://github.com/user-attachments/assets/f17929f3-39a6-41a6-bde3-0f19b2854cff" />
+
+6. Selecciona **Servicio o cuenta de almacenamineto
+<img width="682" alt="30" src="https://github.com/user-attachments/assets/9bd63c09-20c6-4130-b912-a42d86c7440f" />
+
+7. En **Seleccionar el método de conexión**, selecciona la opción **Cadena de conexión (clave o SAS)**
+<img width="506" alt="31" src="https://github.com/user-attachments/assets/a0c46753-4d9b-4cac-aee8-f716cd4dd5c7" />
+
+8. Pega la **Cadena de conexión** copiada anteriormente
+<img width="505" alt="32" src="https://github.com/user-attachments/assets/62aa2af2-52ac-4a50-8e8a-650dd0b0dec5" />
+
+9. Selecciona **Conectar**
+<img width="695" alt="33" src="https://github.com/user-attachments/assets/8352282f-f251-4f2c-8d5e-e8408c026cfb" />
+
+10. haz click con el botón derecho del mouse sobre **Contenedores de blob**, selecciona la opcíon **Crear contenedor de Blob**
+<img width="363" alt="34" src="https://github.com/user-attachments/assets/5805f907-65f0-44dc-bee5-adc7174275c0" />
+<img width="206" alt="35" src="https://github.com/user-attachments/assets/c334cc31-52be-4699-80c0-474f987c05fd" />
+
+11. Selecciona el nuevo contenedor creado, presiona el botón **cargar** y selecciona la opción **Cargar archivos...**
+<img width="114" alt="36" src="https://github.com/user-attachments/assets/fed4720c-2852-4487-aff2-070eb9d92856" />
+
+12. En la ventana **Cargar archivos**, presiona el bóton de tres puntos, selecciona un archivo que quires cargar > Cargar
+<img width="417" alt="37" src="https://github.com/user-attachments/assets/fc177d9c-535f-49bf-8b11-f4a26b1d6159" />
+<img width="476" alt="38" src="https://github.com/user-attachments/assets/558436b1-f65e-4278-938e-e8390101c094" />
+
+13. Comprueba a través del Portal que se ha creado un nuevo Contenedor y que tiene el archivo cargado a través de Azure Storage Explorer
+<img width="555" alt="39" src="https://github.com/user-attachments/assets/af8f1f00-8f91-4313-83b8-d3eb181aa83f" />
+<img width="340" alt="40" src="https://github.com/user-attachments/assets/ad8ae896-a1a1-4188-8aae-a4220d7051eb" />
+
+## Limpia tus recursos
+
+Si está trabajando con **su propia suscripción**, tómese un minuto para eliminar los recursos del laboratorio. Esto garantizará que se liberen recursos y se minimicen los costos. La manera más sencilla de eliminar los recursos de laboratorio es eliminar el grupo de recursos de laboratorio. 
